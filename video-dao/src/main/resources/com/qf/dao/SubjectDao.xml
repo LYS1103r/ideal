@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.SubjectDao">
+
+    <!-- 根据类别代码查询数据  parameterType  属性： 用于指定传入参数的类型。-->
+<!--
+    <resultMap id="subjectMap" type="subject">
+        <id property="id" column="id"/>
+        <result property="subject_name" column="subject_name"/>
+        <collection property="course" ofType="course">
+            <id property="id" column="id"/>
+            <result property="course_title" column="course_title"/>
+            <result property="course_desc" column="course_desc"/>
+            <result property="subject_id" column="subject_id"/>
+        </collection>
+    </resultMap>-->
+    <select id="getSubjectCourse" resultType="subject">
+        select * from `subject`
+        /*left join course on `subject`.id=course.subject_id*/
+        <where>
+            `subject`.id=#{id}
+        </where>
+    </select>
+
+    <resultMap id="listMap" type="subject">
+        <id property="id" column="id"/>
+        <result property="subject_name" column="subject_name"/>
+        <collection property="courseList" ofType="course">
+            <result property="course_title" column="course_title"/>
+            <result property="course_desc" column="course_desc"/>
+            <collection property="videoList" ofType="video">
+                <id property="id" column="vid"/>
+                <result property="title" column="title"/>
+                <result property="image_url" column="image_url"/>
+                <result property="play_num" column="play_num"/>
+                <result property="time" column="time"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="thereAll" resultMap="listMap">
+        select s.id,
+        s.subject_name,
+        c.course_title,
+        c.course_desc,
+        v.id vid,
+        v.title,
+        v.image_url,
+        v.play_num,
+        v.time
+        from subject s
+        left join course c on s.id = c.subject_id
+        left join video v on c.id = v.course_id
+        <where>
+            s.id = #{id}
+        </where>
+    </select>
+
+</mapper>

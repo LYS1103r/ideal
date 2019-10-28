@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.VideoDao">
+    
+    <sql id="videoQuery">
+        <where>
+            <if test="title != null and title != ''">
+                AND video.title LIKE '%${title}%'
+            </if>
+            <if test="speakerId != null and speakerId != ''">
+                AND video.spearker_id = #{speakerId}
+            </if>
+            <if test="courseId != null and courseId != ''">
+                AND video.course_id = #{courseId}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 根据类别代码查询数据  parameterType  属性： 用于指定传入参数的类型。-->
+
+<!--    分页查询 -->
+    <resultMap id="videoMap" type="video">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="detail" column="detail"/>
+        <result property="time" column="time"/>
+        <result property="play_num" column="play_num"/>
+        <result property="spearker_id" column="spearker_id"/>
+        <result property="course_id" column="course_id"/>
+        <result property="video_url" column="video_url"/>
+        <result property="image_url" column="image_url"/>
+        <association property="speaker" javaType="speaker">
+            <id property="id" column="id"/>
+            <result property="speaker_name" column="speaker_name"/>
+            <result property="speaker_desc" column="speaker_desc"/>
+            <result property="speaker_job" column="speaker_job"/>
+            <result property="head_img_url" column="head_img_url"/>
+        </association>
+        <association property="course" javaType="course">
+            <id property="id" column="id"/>
+            <result property="course_title" column="course_title"/>
+            <result property="course_desc" column="course_desc"/>
+            <result property="subject_id" column="subject_id"/>
+        </association>
+    </resultMap>
+
+    <select id="getAll" resultMap="videoMap">
+        select video.*,speaker.*,course.* from video
+        left join speaker on video.spearker_id=speaker.id
+        left join course on video.course_id=course.id
+        <include refid="videoQuery"/>
+        <if test="start != null">
+            LIMIT #{start}, #{rows}
+        </if>
+    </select>
+
+
+<!-- 查询数据总条数  -->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from video
+        <include refid="videoQuery"/>
+    </select>
+
+    <select id="editvideo" resultMap="videoMap">
+        select video.*,speaker.*,course.* from video
+        left join speaker on video.spearker_id=speaker.id
+        left join course on video.course_id=course.id
+        <where>
+            video.id=#{id}
+        </where>
+    </select>
+
+
+    <resultMap id="listMap" type="video">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="detail" column="detail"/>
+        <result property="time" column="time"/>
+        <result property="spearker_id" column="spearker_id"/>
+        <result property="course_id" column="course_id"/>
+        <result property="video_url" column="video_url"/>
+        <result property="image_url" column="image_url"/>
+        <result property="play_num" column="play_num"/>
+        <association property="speaker" javaType="speaker">
+            <result property="speaker_name" column="speaker_name"/>
+            <result property="speaker_desc" column="speaker_desc"/>
+            <result property="speaker_job" column="speaker_job"/>
+            <result property="head_img_url" column="head_img_url"/>
+        </association>
+    </resultMap>
+    <select id="getVorS" resultMap="listMap">
+        select video.*,speaker.* from video left join speaker on video.spearker_id=speaker.id where video.id=#{id}
+    </select>
+
+</mapper>

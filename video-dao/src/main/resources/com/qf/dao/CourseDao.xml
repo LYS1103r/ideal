@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.CourseDao">
+
+    <!-- 根据类别代码查询数据  parameterType  属性： 用于指定传入参数的类型。-->
+
+    <select id="getAllPage" resultType="course">
+        select * from course
+        <if test="start != null">
+            LIMIT #{start}, #{rows}
+        </if>
+    </select>
+
+    <resultMap id="listMap" type="course">
+        <result property="course_desc" column="course_desc"/>
+        <collection property="videoList" ofType="video">
+            <id property="id" column="id"/>
+            <result property="title" column="title"/>
+            <result property="detail" column="detail"/>
+            <result property="play_num" column="play_num"/>
+            <result property="time" column="time"/>
+            <association property="speaker" javaType="speaker">
+                <result property="speaker_name" column="speaker_name"/>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="getCorV" resultMap="listMap">
+        select course.course_desc,video.id,video.title,video.detail,speaker.speaker_name,video.play_num,video.time from course
+        left join video on course.id=video.course_id
+        left join speaker on video.spearker_id=speaker.id
+        where course.id=#{first} and video.id!=#{second}
+    </select>
+
+
+</mapper>
