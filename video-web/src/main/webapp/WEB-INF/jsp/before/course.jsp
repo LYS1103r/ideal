@@ -84,7 +84,7 @@
 </header>
 <nav class="w100">
     <div class="container">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Y先生教育的logo" onclick="location.href='${pageContext.request.contextPath}/index/choose'"
+        <img src="${pageContext.request.contextPath}/img/logoT.png" alt="Y先生教育的logo" onclick="location.href='${pageContext.request.contextPath}/index/choose'"
              draggable="false">
         <ul class="text_13 f_right">
             <li>
@@ -205,7 +205,7 @@
 <div class="mask hidden" id="login">
     <div class="mask_content">
         <div class="mask_content_header">
-            <img src="${pageContext.request.contextPath}/img/logo.png" alt="" class="ma">
+            <img src="${pageContext.request.contextPath}/img/logoT.png" alt="" class="ma">
         </div>
         <div class="mask_content_body">
             <form id="loginForm" action="#">
@@ -229,7 +229,7 @@
 <div class="mask hidden" id="reg">
     <div class="mask_content">
         <div class="mask_content_header">
-            <img src="${pageContext.request.contextPath}/img/logo.png" alt="" class="ma">
+            <img src="${pageContext.request.contextPath}/img/logoT.png" alt="" class="ma">
         </div>
         <div class="mask_content_body">
             <form id="regForm" action="insertUser">

@@ -38,7 +38,7 @@
 <body>
     <header>
         <div class="container">
-            <img src="${pageContext.request.contextPath}/img/logo.png" alt="小禅院">
+            <img src="${pageContext.request.contextPath}/img/logoT.png" alt="小禅院">
         </div>
     </header>
     <main>

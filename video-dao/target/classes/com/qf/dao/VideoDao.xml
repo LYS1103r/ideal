@@ -94,4 +94,23 @@
         select video.*,speaker.* from video left join speaker on video.spearker_id=speaker.id where video.id=#{id}
     </select>
 
+<!--    测试-->
+    <resultMap id="likeMap" type="video">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="detail" column="detail"/>
+        <result property="time" column="time"/>
+        <result property="spearker_id" column="spearker_id"/>
+        <result property="course_id" column="course_id"/>
+        <result property="video_url" column="video_url"/>
+        <result property="image_url" column="image_url"/>
+        <result property="play_num" column="play_num"/>
+    </resultMap>
+
+    <select id="likevideo" resultMap="likeMap">
+        select * from video where title like concat('%',#{str},'%') or detail like concat('%',#{str},'%');
+    </select>
+<!--    <select id="likeco" resultType="java.lang.Integer">-->
+<!--        select count(*) from video where title like '%'#{title}'%'-->
+<!--    </select>-->
 </mapper>

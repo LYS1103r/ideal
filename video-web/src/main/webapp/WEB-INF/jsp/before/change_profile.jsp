@@ -65,7 +65,7 @@
 <body class="w100">
     <header>
         <div class="container top_bar clearfix">
-            <img src="${pageContext.request.contextPath}/img/logo.png" alt="小禅院">
+            <img src="${pageContext.request.contextPath}/img/logoT.png" alt="小禅院">
             <div id="tele">
                 <span>0375-208-9092</span>
                 <span>0375-208-9051</span>

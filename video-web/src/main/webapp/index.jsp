@@ -33,7 +33,7 @@
 <form>
     <div style="margin-top: 10%;">
 
-        <img src="${pageContext.request.contextPath}/images/logo.png" class="img-responsive center-block" style="width: 20%" alt="Responsive image">
+        <img src="${pageContext.request.contextPath}/images/logoT.png" class="img-responsive center-block" style="width: 20%" alt="Responsive image">
 
 
         <div class="container" style="margin-top: 10px;">

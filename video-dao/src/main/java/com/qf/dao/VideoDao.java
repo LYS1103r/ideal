@@ -37,4 +37,13 @@ public interface VideoDao {
     @Update("update video set play_num=#{first}+1 where id=#{second}")
     public void updatePlayNum(HashMap<String,Integer> map);
 
+    //测试
+    public List<Video> likevideo(String str);
+    @Select(" select count(*) from video where video.title like concat('%',#{str},'%') or video.detail like concat('%',#{str},'%');")
+    public Integer likeco(String str);
+    @Insert("insert into video(title) values(#{title})")
+    public void insertdemo(Video video);
+    @Delete("delete from video where title=#{str}")
+    public void deletedemo(String str);
+
 }

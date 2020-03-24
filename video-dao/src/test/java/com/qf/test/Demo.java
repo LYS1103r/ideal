@@ -1,13 +1,14 @@
 package com.qf.test;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.qf.dao.*;
 import com.qf.entity.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Demo {
 
@@ -41,6 +42,27 @@ public class Demo {
         for (Video video:all){
             System.out.println(video);
         }
+
+    }
+
+    //测试
+    @Test
+    public void likevideo(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        VideoDao videoDao=(VideoDao)context.getBean("videoDao");
+        String str="开发";
+        Integer co=videoDao.likeco(str);
+        List<Video> list=videoDao.likevideo(str);
+        //Video video=new Video();
+        //video.setTitle(str);
+       // videoDao.insertdemo(video);
+       // videoDao.deletedemo(str);
+        for (Video video:list){
+            System.out.println(video.toString());
+        }
+        System.out.println("---------------------------\n-------------------");
+        System.out.println("共查询数据："+co+"  条");
+        System.out.println("-------测试结束-----");
 
     }
 
@@ -117,6 +139,25 @@ public class Demo {
         Integer id=218;
         Video vorS = videoDao.getVorS(id);
         System.out.println(vorS);
+
+
+        System.out.println("----------------------------------------------------------");
+        List<Map<String,Object>> list=new ArrayList<>();
+        for (int i=12;i<30;i+=3){
+            Map<String ,Object> map=new HashMap<String ,Object>();
+            map.put("job_id",i);
+            map.put("time",new Date());
+            list.add(map);
+        }
+        String str=list.toString();
+        System.out.println("str: "+str);
+        System.out.println("------------------------------------------------------------");
+
+        JSONArray array=JSONArray.parseArray(str);
+        for (int i=0;i<array.size();i++){
+            JSONObject obj=(JSONObject)array.get(i);
+            System.out.println(obj.getString("obj_id"));
+        }
 
     }
 
